@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Templates Collection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+        
+        .stats {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .stats p {
+            font-size: 1.2rem;
+            color: #666;
+        }
+        
+        .search-box {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .search-box input {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px 20px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 30px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .search-box input:focus {
+            border-color: #3498db;
+        }
+        
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .template-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        
+        .template-card a {
+            display: block;
+            padding: 20px;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .template-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            word-break: break-word;
+        }
+        
+        .template-category {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            text-transform: capitalize;
+        }
+        
+        .category-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+        
+        .category-badge.business { background-color: #3498db; }
+        .category-badge.coming-soon { background-color: #e74c3c; }
+        .category-badge.portfolio { background-color: #9b59b6; }
+        .category-badge.education { background-color: #2ecc71; }
+        .category-badge.medical { background-color: #1abc9c; }
+        .category-badge.restaurant { background-color: #f39c12; }
+        .category-badge.realestate { background-color: #34495e; }
+        .category-badge.admin { background-color: #e67e22; }
+        .category-badge.other { background-color: #95a5a6; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Website Templates Collection</h1>
+        
+        <div class="stats">
+            <p>Всего шаблонов: <strong id="total-count">0</strong></p>
+        </div>
+        
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Поиск по названию шаблона...">
+        </div>
+        
+        <div class="templates-grid" id="templatesGrid">
+            <!-- Templates will be inserted here by JavaScript -->
+        </div>
+    </div>
+    
+    <script>
+        const templates = [
+            { name: '3-col-portfolio', category: 'portfolio' },
+            { name: 'above-educational-bootstrap-responsive-template', category: 'education' },
+            { name: 'ace-responsive-coming-soon-template', category: 'coming-soon' },
+            { name: 'add-life-health-fitness-free-bootstrap-html5-template', category: 'medical' },
+            { name: 'aerosky-real-estate-html-responsive-website-template', category: 'realestate' },
+            { name: 'agile-agency-free-bootstrap-web-template', category: 'business' },
+            { name: 'alive-responsive-coming-soon-template', category: 'coming-soon' },
+            { name: 'amaze-photography-bootstrap-html5-template', category: 'portfolio' },
+            { name: 'aroma-beauty-and-spa-responsive-bootstrap-template', category: 'other' },
+            { name: 'atlanta-free-business-bootstrap-template', category: 'business' },
+            { name: 'avenger-multi-purpose-responsive-html5-bootstrap-template', category: 'business' },
+            { name: 'basic-free-html5-template-for-multi-purpose', category: 'business' },
+            { name: 'beauty-salon-bootstrap-html5-template', category: 'other' },
+            { name: 'bestro-restaurant-bootstrap-html5-template', category: 'restaurant' },
+            { name: 'blazer-responsive-html5-coming-soon-template', category: 'coming-soon' },
+            { name: 'brand-html5-app-landing-page-responsive-web-template', category: 'business' },
+            { name: 'b-school-free-education-html5-website-template', category: 'education' },
+            { name: 'businessline-corporate-portfolio-bootstrap-responsive-web-template', category: 'business' },
+            { name: 'businessr-corporate-bootstrap-responsive-web-template', category: 'business' },
+            { name: 'car-care-auto-mobile-html5-bootstrap-web-template', category: 'other' },
+            { name: 'car-repair-html5-bootstrap-template', category: 'other' },
+            { name: 'car-zone-automobile-bootstrap-responsive-web-template', category: 'other' },
+            { name: 'city-square-bootstrap-responsive-web-template', category: 'realestate' },
+            { name: 'cloud-hosting-free-bootstrap-responsive-website-template', category: 'business' },
+            { name: 'clouds-html5-multipurpose-landing-page-template', category: 'business' },
+            { name: 'coffee-shop-free-html5-template', category: 'restaurant' },
+            { name: 'coming-soon-responsive-theme-jack', category: 'coming-soon' },
+            { name: 'creative-bee-corporate-free-html5-web-template', category: 'business' },
+            { name: 'creative-free-responsive-html5-business-template', category: 'business' },
+            { name: 'css3-bw', category: 'other' },
+            { name: 'css3-drop-shadows', category: 'other' },
+            { name: 'css3-photo-two', category: 'other' },
+            { name: 'css3-seascape', category: 'other' },
+            { name: 'css3-seascape-two', category: 'other' },
+            { name: 'darktouch-corporate-portfolio-bootstrap-responsive-web-template', category: 'business' },
+            { name: 'delight-multi-purpose-free-html5-website-template', category: 'business' },
+            { name: 'delite-music-html5-bootstrap-responsive-web-template', category: 'other' },
+            { name: 'dreamy', category: 'other' },
+            { name: 'drifting', category: 'other' },
+            { name: 'droll', category: 'other' },
+            { name: 'eat-restaurant-bootstrap-html5-template', category: 'restaurant' },
+            { name: 'elegant-free-multi-purpose-bootstrap-responsive-template', category: 'business' },
+            { name: 'endure-html5-responsive-coming-soon-template', category: 'coming-soon' },
+            { name: 'enlive-corporate-free-html5-bootstrap-web-template', category: 'business' },
+            { name: 'everest-corporate-business-bootstrap-template', category: 'business' },
+            { name: 'extent', category: 'other' },
+            { name: 'fiber-hosting-bootstrap-website-template', category: 'business' },
+            { name: 'fit-healthy-fitness-and-gym-html5-bootstrap-theme', category: 'medical' },
+            { name: 'fitness-zone-html5-bootstrap-responsive-web-template', category: 'medical' },
+            { name: 'foodz-mobile-app-bootstrap-landing-page', category: 'business' },
+            { name: 'frames-corporate-bootstrap-free-html5-template', category: 'business' },
+            { name: 'free-bootstrap-admin-template-dream', category: 'admin' },
+            { name: 'free-bootstrap-template-for-multi-purpose-ladder', category: 'business' },
+            { name: 'free-bootstrap-template-real-estate-my-home', category: 'realestate' },
+            { name: 'free-bootstrap-template-restaurant-website-treehut', category: 'restaurant' },
+            { name: 'free-bootstrap-template-rockline-business', category: 'business' },
+            { name: 'free-portfolio-html5-responsive-website-sam', category: 'portfolio' },
+            { name: 'full-slider', category: 'other' },
+            { name: 'funky-cool-blue', category: 'other' },
+            { name: 'getdoctor-free-bootstrap-responsive-website-template', category: 'medical' },
+            { name: 'gila', category: 'other' },
+            { name: 'glips-responsive-free-coming-soon-bootstrap-template', category: 'coming-soon' },
+            { name: 'golden-hotel-free-html5-bootstrap-web-template', category: 'other' },
+            { name: 'grand-free-bootstrap-responsive-website-template', category: 'business' },
+            { name: 'grandure-bootstrap-free-coming-soon-template', category: 'coming-soon' },
+            { name: 'grass-stains', category: 'other' },
+            { name: 'green-corp-flat-free-responsive-mobile-website', category: 'business' },
+            { name: 'greenery', category: 'other' },
+            { name: 'gunmetal-portal', category: 'other' },
+            { name: 'half-slider', category: 'other' },
+            { name: 'html5-portfolio', category: 'portfolio' },
+            { name: 'html5-responsive-coming-soon-page', category: 'coming-soon' },
+            { name: 'hybrid-bootstrap-admin-template', category: 'admin' },
+            { name: 'iam-html5-responsive-portfolio-resume-template', category: 'portfolio' },
+            { name: 'iclick-photography-bootstrap-free-website-template', category: 'portfolio' },
+            { name: 'icon-real-estate-developers-free-responsive-html-template', category: 'realestate' },
+            { name: 'idata-hosting-free-bootstrap-responsive-website-template', category: 'business' },
+            { name: 'ideal-interior-design-free-bootstrap-website-template', category: 'other' },
+            { name: 'indus-free-coming-soon-bootstrap-responsive-template', category: 'coming-soon' },
+            { name: 'insight-free-bootstrap-html5-admin-template', category: 'admin' },
+            { name: 'interio', category: 'other' },
+            { name: 'internet-portal', category: 'other' },
+            { name: 'john-bootstrap-one-page-html5-free-resume-template', category: 'portfolio' },
+            { name: 'johndoe-portfolio-resume-bootstrap-template', category: 'portfolio' },
+            { name: 'kavin-corporate-bootstrap-responsive-web-template', category: 'business' },
+            { name: 'lazydays', category: 'other' },
+            { name: 'learn-educational-free-responsive-web-template', category: 'education' },
+            { name: 'light-coming-soon-html-responsive-template', category: 'coming-soon' },
+            { name: 'line-free-app-landing-page-responsive-web-template', category: 'business' },
+            { name: 'lovely-wedding-bootstrap-free-website-template', category: 'other' },
+            { name: 'matrix-free-bootstrap-admin-template', category: 'admin' },
+            { name: 'medplus-medical', category: 'medical' },
+            { name: 'mentor-free-html5-bootstrap-coming-soon-template', category: 'coming-soon' },
+            { name: 'me-resume-personal-portfolio-responsive-template', category: 'portfolio' },
+            { name: 'metropolis', category: 'other' },
+            { name: 'midway-free-html5-website-template-for-multi-purpose', category: 'business' },
+            { name: 'missunderstood', category: 'other' },
+            { name: 'mobile-app-free-one-page-responsive-html5-landing-page', category: 'business' },
+            { name: 'mobile-app-landing-page-html5-template', category: 'business' },
+            { name: 'moon-free-bootstrap-coming-soon-template', category: 'coming-soon' },
+            { name: 'moto-business-html5-responsive-web-template', category: 'business' },
+            { name: 'my-portfolio-two', category: 'portfolio' },
+            { name: 'next-responsive-coming-soon-bootstrap-template', category: 'coming-soon' },
+            { name: 'ninja-business-consulting-html-responsive-web-template', category: 'business' },
+            { name: 'one-page-wonder', category: 'other' },
+            { name: 'orange-coming-soon-html-responsive-template', category: 'coming-soon' },
+            { name: 'park-city-bootstrap-html-real-estate-responsive-template', category: 'realestate' },
+            { name: 'photo-art', category: 'portfolio' },
+            { name: 'photo-style-two', category: 'portfolio' },
+            { name: 'plain', category: 'other' },
+            { name: 'portfolio-item', category: 'portfolio' },
+            { name: 'prosimii', category: 'other' },
+            { name: 'real-estate-builders-free-responsive-website-templates-adesign', category: 'realestate' },
+            { name: 'relax-interior-free-bootstrap-responsive-website-template', category: 'other' },
+            { name: 'relic-portal', category: 'other' },
+            { name: 'retro-free-consulting-responsive-html5-website-template', category: 'business' },
+            { name: 'reveal', category: 'other' },
+            { name: 'rider-free-multi-purpose-bootstrap-template', category: 'business' },
+            { name: 'rocket-business-bootstrap-free-responsive-web-theme', category: 'business' },
+            { name: 'sample_site', category: 'other' },
+            { name: 'sb-admin-2', category: 'admin' },
+            { name: 'sb-admin', category: 'admin' },
+            { name: 'scenic-photo', category: 'portfolio' },
+            { name: 'school-educational-html5-template', category: 'education' },
+            { name: 'simple-sidebar', category: 'other' },
+            { name: 'simply-bootstrap-coming-soon-template', category: 'coming-soon' },
+            { name: 'sinorca', category: 'other' },
+            { name: 'skytouch-onepage-bootstrap-responsive-web-template', category: 'business' },
+            { name: 'smartapp-free-html5-landing-page', category: 'business' },
+            { name: 'smart-interior-designs-html5-bootstrap-web-template', category: 'other' },
+            { name: 'speed-hosting-bootstrap-free-html5-template', category: 'business' },
+            { name: 'startbootstrap-agency-1.0.2', category: 'business' },
+            { name: 'startbootstrap-clean-blog-1.0.2', category: 'other' },
+            { name: 'startbootstrap-freelancer-1.0.2', category: 'portfolio' },
+            { name: 'startbootstrap-grayscale-1.0.3', category: 'other' },
+            { name: 'startbootstrap-sb-admin-1.0.2', category: 'admin' },
+            { name: 'startbootstrap-sb-admin-2-1.0.5', category: 'admin' },
+            { name: 'startbootstrap-stylish-portfolio-1.0.2', category: 'portfolio' },
+            { name: 'street-life', category: 'other' },
+            { name: 'styleinn-bootstrap-interior-design-website-template', category: 'other' },
+            { name: 'stylish-bootstrap-coming-soon-template', category: 'coming-soon' },
+            { name: 'stylish-portfolio', category: 'portfolio' },
+            { name: 'super-simple-site', category: 'other' },
+            { name: 'swifty-business-html5-website-template', category: 'business' },
+            { name: 'target-multipurpose-free-bootstrap-responsive-template', category: 'business' },
+            { name: 'team-business-flat-bootstrap-html5-template', category: 'business' },
+            { name: 'tech-city-free-coming-soon-bootstrap-responsive-template', category: 'coming-soon' },
+            { name: 'techking-free-html5-template-for-corporate-business', category: 'business' },
+            { name: 'techro', category: 'business' },
+            { name: 'the-best-wedding-free-bootstrap-template', category: 'other' },
+            { name: 'theme-changer-template', category: 'other' },
+            { name: 'themer-bootstrap-responsive-web-template', category: 'business' },
+            { name: 'thin-green-line', category: 'other' },
+            { name: 'times-corporate-portfolio-bootstrap-responsive-web-template', category: 'business' },
+            { name: 'touch-hospital-medical-bootstrap-html5-template', category: 'medical' },
+            { name: 'traveller-bootstrap-responsive-web-template', category: 'other' },
+            { name: 'trendset-coming-soon-responsive-theme', category: 'coming-soon' },
+            { name: 'trendy-free-bootstrap-responsive-website-template', category: 'business' },
+            { name: 'unique-free-responsive-html5-template', category: 'business' },
+            { name: 'vcare-free-html5-template-hospital-website', category: 'medical' },
+            { name: 'vento-coming-soon-responsive-theme', category: 'coming-soon' },
+            { name: 'vibe-free-html5-template-for-corporate-website', category: 'business' },
+            { name: 'vibrant-corporate-bootstrap-responsive-website-template', category: 'business' },
+            { name: 'victory-educational-institution-free-html5-bootstrap-template', category: 'education' },
+            { name: 'viver-free-html5-bootstrap-coming-soon-template', category: 'coming-soon' },
+            { name: 'vone-free-business-html5-responsive-website', category: 'business' },
+            { name: 'vteam-a-corporate-multipurpose-free-bootstrap-responsive-template', category: 'business' },
+            { name: 'webtrends-free-bootstrap-responsive-web-template', category: 'business' },
+            { name: 'wedding-bells-free-responsive-html5-template', category: 'other' },
+            { name: 'wow-portfolio-multi-purpose-html5-template', category: 'portfolio' },
+            { name: 'zenlike', category: 'other' }
+        ];
+        
+        function getCategoryLabel(category) {
+            const labels = {
+                'business': 'Бизнес',
+                'coming-soon': 'Coming Soon',
+                'portfolio': 'Портфолио',
+                'education': 'Образование',
+                'medical': 'Медицина',
+                'restaurant': 'Рестораны',
+                'realestate': 'Недвижимость',
+                'admin': 'Админ панель',
+                'other': 'Другое'
+            };
+            return labels[category] || 'Другое';
+        }
+        
+        function formatTemplateName(name) {
+            return name
+                .replace(/-/g, ' ')
+                .replace(/\b\w/g, l => l.toUpperCase());
+        }
+        
+        function renderTemplates(filteredTemplates) {
+            const grid = document.getElementById('templatesGrid');
+            grid.innerHTML = '';
+            
+            filteredTemplates.forEach(template => {
+                const card = document.createElement('div');
+                card.className = 'template-card';
+                
+                card.innerHTML = `
+                    <a href="${template.name}/" target="_blank">
+                        <div class="template-name">${formatTemplateName(template.name)}</div>
+                        <div class="template-category">${template.name}</div>
+                        <span class="category-badge ${template.category}">${getCategoryLabel(template.category)}</span>
+                    </a>
+                `;
+                
+                grid.appendChild(card);
+            });
+            
+            document.getElementById('total-count').textContent = filteredTemplates.length;
+        }
+        
+        // Initial render
+        renderTemplates(templates);
+        
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const filtered = templates.filter(template => 
+                template.name.toLowerCase().includes(searchTerm) ||
+                getCategoryLabel(template.category).toLowerCase().includes(searchTerm)
+            );
+            renderTemplates(filtered);
+        });
+    </script>
+</body>
+</html>
